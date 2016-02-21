@@ -373,15 +373,14 @@ React 可以负责为每一个组件类创建实例，所以你可以使用方�
 
 一个 *组件* 可以用几种不同的方式来声明。它可以是具有`render()`方法的类。又或者，在简单点的场景下，可以用函数来定义它。不管哪种，它都使用props作为输入，元素树作为输出。
 
-一个组件接收几个属性作为输入，
+当一个组件接收一些属性作为输入，这正是因为特定的父组件返回了有这种`type`和这些属性的元素。这就是为什么人们说在React中属性只流向一个方向：从父级到子级。
 
-When a component receives some props as an input, it is because a particular parent component returned an element with its `type` and these props. This is why people say that the props flows one way in React: from parents to children.
+*实例* 就是你在写组件类时里面的`this`所指向的东西。它对于[保存本地状态和响应生命周期里的事件]有用处。(/react/docs/component-api.html).
 
-An *instance* is what you refer to as `this` in the component class you write. It is useful for [storing local state and reacting to the lifecycle events](/react/docs/component-api.html).
+函数式组件根本没有实例。类式组件有实例，但你永远不需要直接创建一个组件实例--React会负责的。
 
-Functional components don’t have instances at all. Class components have instances, but you never need to create a component instance directly—React takes care of this.
+最后，要创建元素的话，使用[`React.createElement()`](/react/docs/top-level-api.html#react.createelement), [JSX](/react/docs/jsx-in-depth.html), 或 [element factory helper](/react/docs/top-level-api.html#react.createfactory)。不要在真实的代码中把元素写成纯对象--只需要知道在表象下面它们就是纯对象。
 
-Finally, to create elements, use [`React.createElement()`](/react/docs/top-level-api.html#react.createelement), [JSX](/react/docs/jsx-in-depth.html), or an [element factory helper](/react/docs/top-level-api.html#react.createfactory). Don’t write elements as plain objects in the real code—just know that they are plain objects under the hood.
 
 ## 深度阅读
 
@@ -389,4 +388,5 @@ Finally, to create elements, use [`React.createElement()`](/react/docs/top-level
 * [Streamlining React Elements](/react/blog/2015/02/24/streamlining-react-elements.html)
 * [React (Virtual) DOM Terminology](/react/docs/glossary.html)
 
-[^1]: All React elements require an additional ``$$typeof: Symbol.for('react.element')`` field declared on the object for [security reasons](https://github.com/facebook/react/pull/4832). It is omitted in the examples above. This blog entry uses inline objects for elements to give you an idea of what’s happening underneath but the code won’t run as is unless you either add `$$typeof` to the elements, or change the code to use `React.createElement()` or JSX.
+
+[^1]: 因为[安全原因](https://github.com/facebook/react/pull/4832)所有的React 元素都需要在对象上声明一个附加的字段 ``$$typeof: Symbol.for('react.element')`` 上面的例子省略了这点。本篇博文在元素上使用了内联对象，是为了向你说明底层发生了什么的概念，这个代码并跑不起来，除非你给元素添加了`$$typeof`字段，或者把代码改成使用`React.createElement()` 或 JSX的方式。
